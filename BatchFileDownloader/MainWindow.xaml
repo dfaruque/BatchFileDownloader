@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BatchFileDownloader"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="353" Width="525">
     <Grid>
-        
+        <Button x:Name="btnDownload" Content="Download" HorizontalAlignment="Left" Margin="432,80,0,0" VerticalAlignment="Top" Width="75" Click="btnDownload_Click"/>
+        <Label Content="Excel File" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtExcelFile" HorizontalAlignment="Left" Height="23" Margin="86,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="421" />
+        <Label Content="Root Folder" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtRootFolder" HorizontalAlignment="Left" Height="23" Margin="87,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="420"/>
+        <Label Content="Downloaded Files" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top"/>
+        <ListBox x:Name="lstDownloadedFiles" HorizontalAlignment="Left" Height="116" Margin="10,111,0,0" VerticalAlignment="Top" Width="497"/>
+        <ProgressBar x:Name="progressBar" HorizontalAlignment="Left" Height="22" Margin="10,247,0,0" VerticalAlignment="Top" Width="497"/>
+        <Label x:Name="labelProgress" Content="Label" HorizontalAlignment="Left" Margin="10,269,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 </Window>
