@@ -15,7 +15,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BatchFileDownloader
 {
@@ -41,11 +40,6 @@ namespace BatchFileDownloader
                 client.DownloadProgressChanged += client_DownloadProgressChanged;
                 client.DownloadFileCompleted += Client_DownloadFileCompleted;
                 await StartDownload(client);
-
-                //    client.DownloadFileAsync(new Uri("http://i.ebayimg.com/00/s/MTYwMFgxMjcw/z/4SIAAOSwM6NZsZ6u/$_12.JPG")
-                //        , @"f:\image35.jpg");
-
-                //    client.DownloadFileCompleted += Client_DownloadFileCompleted;
             }
         }
 
@@ -58,12 +52,30 @@ namespace BatchFileDownloader
             using (var fs = new FileStream(txtExcelFile.Text, FileMode.Open, FileAccess.Read))
                 ep.Load(fs);
 
-            var worksheet = ep.Workbook.Worksheets[1];
+            var worksheet = ep.Workbook.Worksheets.FirstOrDefault(f=>f.Name == txtExcelSheet.Text);
 
+            if (worksheet == null)
+            {
+                MessageBox.Show("Excel Sheet not found!");
+                return downloadList;
+            }
+            
             int columnIndex = 1;
             while (!string.IsNullOrWhiteSpace(worksheet.Cells[1, columnIndex].Value?.ToString()))
             {
-                var folderName = worksheet.Cells[1, columnIndex].Value?.ToString().Replace('/', '_');
+                var folderName = worksheet.Cells[1, columnIndex].Value.ToString()
+                    .Replace('/', '_')
+                    .Replace('\\', '_')
+                    .Replace('<', '_')
+                    .Replace('>', '_')
+                    .Replace('*', '_')
+                    .Replace('?', '_')
+                    .Replace('|', '_')
+                    .Replace(':', '_')
+                    .Replace('"', '_')
+                    ;
+
+                Directory.CreateDirectory(txtRootFolder.Text + "\\" + folderName);
 
                 int rowIndex = 2;
                 while (!string.IsNullOrWhiteSpace(worksheet.Cells[rowIndex, columnIndex].Value?.ToString()))
@@ -135,7 +147,6 @@ namespace BatchFileDownloader
                 _tcs = new TaskCompletionSource<bool>();
 
                 var folderPath = txtRootFolder.Text + "\\" + item.FolderName;
-                Directory.CreateDirectory(folderPath);
                 var filePath = folderPath + "\\" + item.FileName;
 
                 client.DownloadFileAsync(new Uri(item.Url), filePath);
@@ -149,12 +160,37 @@ namespace BatchFileDownloader
             }
             _tcs = null;
         }
+
+        //public string ExcelFilePath { get; set; }
+        //public string RootFolder { get; set; }
+
+        private void ExcelFileBrowse(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            if (string.IsNullOrWhiteSpace(txtExcelFile.Text))
+            {
+                dlg.FileName = "*.xlsx";
+                //dlg.InitialDirectory = Path.GetDirectoryName(txtExcelFile.Text);
+            }
+            else
+            {
+                var webProjectFile = Path.GetFullPath(txtExcelFile.Text);
+                dlg.FileName = Path.GetFileName(txtExcelFile.Text);
+                dlg.InitialDirectory = Path.GetDirectoryName(txtExcelFile.Text);
+            }
+
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                txtExcelFile.Text = dlg.FileName;
+            }
+        }
     }
 
     public class FileDownloadModel
     {
         public string Url { get; set; }
-        //public string FileExtension { get; set; }
         public string FolderName { get; set; }
         public string FileName { get; set; }
         public bool IsDownloaded { get; set; }

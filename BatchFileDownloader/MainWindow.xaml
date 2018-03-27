@@ -5,12 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BatchFileDownloader"
         mc:Ignorable="d"
-        Title="Batch Downloader" Height="497" Width="525">
+        Title="Batch Downloader" Height="497" Width="1025">
     <Grid>
+
         <Button x:Name="btnCalculate" Content="Calculate" HorizontalAlignment="Left" Margin="432,69,0,0" VerticalAlignment="Top" Width="75" Click="btnCalculate_Click"/>
         <Button x:Name="btnDownload" Content="Download" HorizontalAlignment="Left" Margin="432,95,0,0" VerticalAlignment="Top" Width="75" Click="btnDownload_Click"/>
         <Label Content="Excel File" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtExcelFile" HorizontalAlignment="Left" Height="23" Margin="86,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="421" Text="F:\x1.xlsx" />
+        <Button Content="..." HorizontalAlignment="Left" Margin="484,11,0,0" VerticalAlignment="Top" Width="23" Click="ExcelFileBrowse" Height="23"/>
+        <TextBox x:Name="txtExcelFile" HorizontalAlignment="Left" Height="23" Margin="86,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="398" Text="F:\x1.xlsx" />
+        <Label Content="Excel Sheet" HorizontalAlignment="Left" Margin="524,8,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtExcelSheet" HorizontalAlignment="Left" Height="23" Margin="609,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="398" Text="Sheet1" />
         <Label Content="Root Folder" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtRootFolder" HorizontalAlignment="Left" Height="23" Margin="87,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="420" Text="F:\images"/>
         <DataGrid x:Name="dtGrid" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.083,5.769"/>
