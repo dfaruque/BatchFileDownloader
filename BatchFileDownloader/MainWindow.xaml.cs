@@ -52,14 +52,14 @@ namespace BatchFileDownloader
             using (var fs = new FileStream(txtExcelFile.Text, FileMode.Open, FileAccess.Read))
                 ep.Load(fs);
 
-            var worksheet = ep.Workbook.Worksheets.FirstOrDefault(f=>f.Name == txtExcelSheet.Text);
+            var worksheet = ep.Workbook.Worksheets.FirstOrDefault(f => f.Name == txtExcelSheet.Text);
 
             if (worksheet == null)
             {
                 MessageBox.Show("Excel Sheet not found!");
                 return downloadList;
             }
-            
+
             int columnIndex = 1;
             while (!string.IsNullOrWhiteSpace(worksheet.Cells[1, columnIndex].Value?.ToString()))
             {
@@ -75,7 +75,8 @@ namespace BatchFileDownloader
                     .Replace('"', '_')
                     ;
 
-                Directory.CreateDirectory(txtRootFolder.Text + "\\" + folderName);
+                var folderPath = txtRootFolder.Text + "\\" + folderName;
+                Directory.CreateDirectory(folderPath);
 
                 int rowIndex = 2;
                 while (!string.IsNullOrWhiteSpace(worksheet.Cells[rowIndex, columnIndex].Value?.ToString()))
@@ -89,12 +90,15 @@ namespace BatchFileDownloader
                         {
                             var fileName = folderName + "__" + (rowIndex - 1) + fileExt;
 
+                            var isDownloaded = File.Exists(folderPath + "\\" + fileName);
+
                             downloadList.Add(new FileDownloadModel
                             {
                                 Url = url,
                                 FolderName = folderName,
                                 FileName = fileName,
-                                ExcelCellAddress = worksheet.Cells[rowIndex, columnIndex].FullAddressAbsolute
+                                ExcelCellAddress = worksheet.Cells[rowIndex, columnIndex].FullAddressAbsolute,
+                                IsDownloaded = isDownloaded
                             });
                         }
                     }
@@ -109,7 +113,7 @@ namespace BatchFileDownloader
             dtGrid.ItemsSource = downloadList;
 
             labelTotal.Content = $"Total files to download : {downloadList.Count}";
-            labelProgress.Content = $"Download completed : {0}";
+            labelProgress.Content = String.Format("{0} of {1} Items Downloaded", downloadList.Count(f => f.IsDownloaded), downloadList.Count);
             return downloadList;
         }
 
@@ -141,8 +145,8 @@ namespace BatchFileDownloader
 
         private async Task StartDownload(WebClient client)
         {
-            int currentItem = 1;
-            foreach (var item in downloadList)
+
+            foreach (var item in downloadList.FindAll(f => f.IsDownloaded == false))
             {
                 _tcs = new TaskCompletionSource<bool>();
 
@@ -154,8 +158,8 @@ namespace BatchFileDownloader
 
                 if (downloaded)
                 {
-                    labelProgress.Content = String.Format("{0} of {1} Items Downloaded", currentItem++, downloadList.Count);
                     item.IsDownloaded = true;
+                    labelProgress.Content = String.Format("{0} of {1} Items Downloaded", downloadList.Count(f => f.IsDownloaded), downloadList.Count);
                 }
             }
             _tcs = null;
