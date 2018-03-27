@@ -5,21 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BatchFileDownloader"
         mc:Ignorable="d"
-        Title="Batch Downloader" Height="497" Width="1025">
+        Title="Batch Downloader" Height="497" Width="1025"
+        FontSize="16">
     <Grid>
 
-        <Button x:Name="btnCalculate" Content="Calculate" HorizontalAlignment="Left" Margin="432,69,0,0" VerticalAlignment="Top" Width="75" Click="btnCalculate_Click"/>
-        <Button x:Name="btnDownload" Content="Download" HorizontalAlignment="Left" Margin="432,95,0,0" VerticalAlignment="Top" Width="75" Click="btnDownload_Click"/>
+        <Button x:Name="btnCalculate" Content="Calculate" HorizontalAlignment="Left" Margin="711,39,0,0" VerticalAlignment="Top" Width="75" Click="btnCalculate_Click" RenderTransformOrigin="1.32,0.3"/>
+        <Button x:Name="btnDownload" Content="Download Remaining Files" HorizontalAlignment="Left" Margin="791,39,0,0" VerticalAlignment="Top" Width="216" Click="btnDownload_Click"/>
         <Label Content="Excel File" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top"/>
-        <Button Content="..." HorizontalAlignment="Left" Margin="484,11,0,0" VerticalAlignment="Top" Width="23" Click="ExcelFileBrowse" Height="23"/>
-        <TextBox x:Name="txtExcelFile" HorizontalAlignment="Left" Height="23" Margin="86,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="398" Text="F:\x1.xlsx" />
-        <Label Content="Excel Sheet" HorizontalAlignment="Left" Margin="524,8,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtExcelSheet" HorizontalAlignment="Left" Height="23" Margin="609,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="398" Text="Sheet1" />
+        <Button Content="..." HorizontalAlignment="Left" Margin="984,10,0,0" VerticalAlignment="Top" Width="23" Click="ExcelFileBrowse" Height="23" RenderTransformOrigin="9.174,0.478"/>
+        <TextBox x:Name="txtExcelFile" HorizontalAlignment="Left" Height="23" Margin="114,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="865" Text="F:\x1.xlsx" />
+        <Label Content="Excel Sheet" HorizontalAlignment="Left" Margin="347,37,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtExcelSheet" HorizontalAlignment="Left" Height="23" Margin="436,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" Text="Sheet1" />
         <Label Content="Root Folder" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtRootFolder" HorizontalAlignment="Left" Height="23" Margin="87,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="420" Text="F:\images"/>
-        <DataGrid x:Name="dtGrid" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.083,5.769"/>
-        <Label x:Name="labelTotal" Content="Label" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="labelProgress" Content="Label" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.289,0.731"/>
+        <TextBox x:Name="txtRootFolder" HorizontalAlignment="Left" Height="23" Margin="114,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" Text="F:\images"/>
+        <DataGrid x:Name="dtGrid" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.083,5.769"/>
+        <Label x:Name="labelProgress" Content="Label" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.289,0.731"/>
+        <ProgressBar x:Name="progressBar" HorizontalAlignment="Left" Height="21" Margin="10,104,0,0" VerticalAlignment="Top" Width="997"/>
+        <Label x:Name="labelProgressSingle" Content="Label" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.289,0.731"/>
+        <ProgressBar x:Name="progressBarSingle" HorizontalAlignment="Left" Height="21" Margin="10,156,0,0" VerticalAlignment="Top" Width="997"/>
 
     </Grid>
 </Window>

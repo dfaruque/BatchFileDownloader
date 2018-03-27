@@ -112,11 +112,19 @@ namespace BatchFileDownloader
 
             dtGrid.ItemsSource = downloadList;
 
-            labelTotal.Content = $"Total files to download : {downloadList.Count}";
-            labelProgress.Content = String.Format("{0} of {1} Items Downloaded", downloadList.Count(f => f.IsDownloaded), downloadList.Count);
+            progressBar.Maximum = downloadList.Count;
+
+            UpdateStatus(downloadList);
+
             return downloadList;
         }
 
+        private void UpdateStatus(List<FileDownloadModel> downloadList)
+        {
+            var downloadedCount = downloadList.Count(f => f.IsDownloaded);
+            labelProgress.Content = String.Format("{0} of {1} Items Downloaded", downloadedCount, downloadList.Count);
+            progressBar.Value = downloadedCount;
+        }
 
         private void btnCalculate_Click(object sender, RoutedEventArgs e)
         {
@@ -130,7 +138,9 @@ namespace BatchFileDownloader
 
         void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            //labelProgress.Content = String.Format("Downloaded {0} of {1} bytes", e.BytesReceived, e.TotalBytesToReceive);
+            labelProgressSingle.Content = String.Format("Downloaded {0} of {1} bytes", e.BytesReceived, e.TotalBytesToReceive);
+            progressBarSingle.Maximum = e.TotalBytesToReceive;
+            progressBarSingle.Value = e.BytesReceived;
         }
 
         void Client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
@@ -159,7 +169,7 @@ namespace BatchFileDownloader
                 if (downloaded)
                 {
                     item.IsDownloaded = true;
-                    labelProgress.Content = String.Format("{0} of {1} Items Downloaded", downloadList.Count(f => f.IsDownloaded), downloadList.Count);
+                    UpdateStatus(downloadList);
                 }
             }
             _tcs = null;
