@@ -13,11 +13,13 @@
         <Button x:Name="btnDownload" Content="Download Remaining Files" HorizontalAlignment="Left" Margin="791,39,0,0" VerticalAlignment="Top" Width="216" Click="btnDownload_Click"/>
         <Label Content="Excel File" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top"/>
         <Button Content="..." HorizontalAlignment="Left" Margin="984,10,0,0" VerticalAlignment="Top" Width="23" Click="ExcelFileBrowse" Height="23" RenderTransformOrigin="9.174,0.478"/>
-        <TextBox x:Name="txtExcelFile" HorizontalAlignment="Left" Height="23" Margin="114,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="865" Text="F:\x1.xlsx" />
-        <Label Content="Excel Sheet" HorizontalAlignment="Left" Margin="347,37,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtExcelSheet" HorizontalAlignment="Left" Height="23" Margin="436,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" Text="Sheet1" />
+        <TextBox x:Name="txtExcelFile" HorizontalAlignment="Left" Height="23" Margin="114,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="865" Text="" />
+        <Label Content="Excel Sheet" HorizontalAlignment="Left" Margin="416,37,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtExcelSheet" HorizontalAlignment="Left" Height="23" Margin="510,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" Text="Sheet1" />
         <Label Content="Root Folder" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtRootFolder" HorizontalAlignment="Left" Height="23" Margin="114,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" Text="F:\images"/>
+        <TextBox x:Name="txtRootFolder" HorizontalAlignment="Left" Height="23" Margin="114,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" Text=""/>
+        <Button Content="..." HorizontalAlignment="Left" Margin="341,41,0,0" VerticalAlignment="Top" Width="23" Click="FolderBrowse" Height="23" RenderTransformOrigin="9.174,0.478"/>
+
         <DataGrid x:Name="dtGrid" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.083,5.769"/>
         <Label x:Name="labelProgress" Content="Label" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.289,0.731"/>
         <ProgressBar x:Name="progressBar" HorizontalAlignment="Left" Height="21" Margin="10,104,0,0" VerticalAlignment="Top" Width="997"/>

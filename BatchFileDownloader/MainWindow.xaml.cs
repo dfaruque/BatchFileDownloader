@@ -180,24 +180,62 @@ namespace BatchFileDownloader
 
         private void ExcelFileBrowse(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            if (string.IsNullOrWhiteSpace(txtExcelFile.Text))
+            try
             {
-                dlg.FileName = "*.xlsx";
-                //dlg.InitialDirectory = Path.GetDirectoryName(txtExcelFile.Text);
-            }
-            else
-            {
-                var webProjectFile = Path.GetFullPath(txtExcelFile.Text);
-                dlg.FileName = Path.GetFileName(txtExcelFile.Text);
-                dlg.InitialDirectory = Path.GetDirectoryName(txtExcelFile.Text);
-            }
+                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+                if (string.IsNullOrWhiteSpace(txtExcelFile.Text))
+                {
+                    dlg.FileName = "*.xlsx";
+                    //dlg.InitialDirectory = Path.GetDirectoryName(txtExcelFile.Text);
+                }
+                else
+                {
+                    var webProjectFile = Path.GetFullPath(txtExcelFile.Text);
+                    dlg.FileName = Path.GetFileName(txtExcelFile.Text);
+                    dlg.InitialDirectory = Path.GetDirectoryName(txtExcelFile.Text);
+                }
 
-            Nullable<bool> result = dlg.ShowDialog();
+                Nullable<bool> result = dlg.ShowDialog();
 
-            if (result == true)
+                if (result == true)
+                {
+                    txtExcelFile.Text = dlg.FileName;
+                }
+            }
+            catch (Exception ex)
             {
-                txtExcelFile.Text = dlg.FileName;
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void FolderBrowse(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+                
+
+                if (string.IsNullOrWhiteSpace(txtExcelFile.Text))
+                {
+                    dlg.FileName = "*.xlsx";
+                    //dlg.InitialDirectory = Path.GetDirectoryName(txtExcelFile.Text);
+                }
+                else
+                {
+                    var webProjectFile = Path.GetFullPath(txtRootFolder.Text);
+                    dlg.InitialDirectory = Path.GetDirectoryName(txtRootFolder.Text);
+                }
+
+                Nullable<bool> result = dlg.ShowDialog();
+
+                if (result == true)
+                {
+                    txtRootFolder.Text = Path.GetDirectoryName(dlg.FileName);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }
